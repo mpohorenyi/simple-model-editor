@@ -35,7 +35,7 @@ export class App {
     const group = new THREE.Group();
 
     const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshStandardMaterial({ color: 0x3498db });
+    const material = new THREE.MeshStandardMaterial({ color: 0x5865f2 });
     const cube = new THREE.Mesh(geometry, material);
     cube.position.set(0, 0.5, 0);
     cube.castShadow = true;

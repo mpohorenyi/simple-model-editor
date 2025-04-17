@@ -34,17 +34,18 @@ export class SceneManager {
 
   private constructor() {
     this.canvas = document.querySelector('canvas.webgl') as HTMLCanvasElement;
+    const canvasContainer = document.querySelector('.canvas-container') as HTMLDivElement;
 
     this.eventBus = EventBus.getInstance();
 
     // Initialize scene
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x1e1f22);
+    this.scene.background = new THREE.Color(0x2b2d31);
 
     // Initialize camera
     this.camera = new THREE.PerspectiveCamera(
       75,
-      window.innerWidth / window.innerHeight,
+      canvasContainer.clientWidth / canvasContainer.clientHeight,
       0.1,
       1000
     );
@@ -56,7 +57,7 @@ export class SceneManager {
       canvas: this.canvas,
       antialias: true,
     });
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -157,11 +158,15 @@ export class SceneManager {
   }
 
   private handleResize(): void {
-    this.camera.aspect = window.innerWidth / window.innerHeight;
-    this.camera.updateProjectionMatrix();
+    const canvasContainer = this.canvas.parentElement;
 
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    if (canvasContainer) {
+      this.camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
+      this.camera.updateProjectionMatrix();
+
+      this.renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    }
   }
 
   private handleOrbitControlsToggle(enabled: boolean): void {

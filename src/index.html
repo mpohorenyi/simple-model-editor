@@ -8,6 +8,190 @@
     <script type="module" src="./script.ts"></script>
   </head>
   <body>
-    <canvas class="webgl"></canvas>
+    <div class="app-container">
+      <div class="canvas-container">
+        <canvas class="webgl"></canvas>
+      </div>
+      <div class="side-panel">
+        <div class="panel-section">
+          <h3>Environment</h3>
+          <div class="env-maps">
+            <img
+              src="./envmaps/thumbnails/studio_small_09.webp"
+              class="env-map-thumbnail active"
+              data-env="studio_small_09"
+            />
+            <img
+              src="./envmaps/thumbnails/rainforest_trail.webp"
+              class="env-map-thumbnail"
+              data-env="rainforest_trail"
+            />
+            <img
+              src="./envmaps/thumbnails/rogland_clear_night.webp"
+              class="env-map-thumbnail"
+              data-env="rogland_clear_night"
+            />
+          </div>
+        </div>
+        <div class="panel-section">
+          <h3>Import</h3>
+          <input type="file" id="model-input" accept=".glb,.gltf,.fbx" style="display: none" />
+          <button id="import-button">Import Model</button>
+        </div>
+        <div id="object-properties" class="panel-section">
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="object-tab">OBJECT</button>
+            <button class="tab-btn" data-tab="material-tab">MATERIAL</button>
+          </div>
+          <div id="object-tab" class="tab-content active">
+            <div class="property-row">
+              <label>Name</label>
+              <input type="text" id="object-name" value="Cube_001" disabled />
+            </div>
+            <div class="property-row">
+              <label>Position</label>
+              <div class="vector-inputs">
+                <input
+                  type="number"
+                  class="vector-input"
+                  id="pos-x"
+                  value="0"
+                  min="-100"
+                  max="100"
+                  step="0.1"
+                />
+                <input
+                  type="number"
+                  class="vector-input"
+                  id="pos-y"
+                  value="0"
+                  min="-100"
+                  max="100"
+                  step="0.1"
+                />
+                <input
+                  type="number"
+                  class="vector-input"
+                  id="pos-z"
+                  value="0"
+                  min="-100"
+                  max="100"
+                  step="0.1"
+                />
+              </div>
+            </div>
+            <div class="property-row">
+              <label>Rotation</label>
+              <div class="vector-inputs">
+                <input
+                  type="number"
+                  class="vector-input"
+                  id="rot-x"
+                  value="0"
+                  min="0"
+                  max="360"
+                  step="5"
+                />
+                <input
+                  type="number"
+                  class="vector-input"
+                  id="rot-y"
+                  value="0"
+                  min="0"
+                  max="360"
+                  step="5"
+                />
+                <input
+                  type="number"
+                  class="vector-input"
+                  id="rot-z"
+                  value="0"
+                  min="0"
+                  max="360"
+                  step="5"
+                />
+              </div>
+            </div>
+            <div class="property-row">
+              <label>Scale</label>
+              <div class="vector-inputs">
+                <input
+                  type="number"
+                  class="vector-input"
+                  id="scale-x"
+                  value="1"
+                  min="0.01"
+                  max="100"
+                  step="0.01"
+                />
+                <input
+                  type="number"
+                  class="vector-input"
+                  id="scale-y"
+                  value="1"
+                  min="0.01"
+                  max="100"
+                  step="0.01"
+                />
+                <input
+                  type="number"
+                  class="vector-input"
+                  id="scale-z"
+                  value="1"
+                  min="0.01"
+                  max="100"
+                  step="0.01"
+                />
+              </div>
+            </div>
+            <div class="property-row">
+              <label>Visible</label>
+              <input type="checkbox" id="object-visible" checked />
+            </div>
+          </div>
+          <div id="material-tab" class="tab-content active">
+            <div class="property-row">
+              <label>Color</label>
+              <div class="color-input-wrapper">
+                <input type="color" id="material-color" value="#ffffff" />
+              </div>
+            </div>
+
+            <div class="property-row">
+              <label>Opacity</label>
+              <input type="range" id="material-opacity" min="0" max="1" step="0.01" value="1" />
+              <span class="value-display">1.00</span>
+            </div>
+
+            <div class="property-row">
+              <label>Transparent</label>
+              <input type="checkbox" id="material-transparent" />
+            </div>
+
+            <div class="texture-section">
+              <div class="property-row">
+                <label>Diffuse</label>
+                <div class="texture-controls">
+                  <input type="checkbox" id="diffuse-map-toggle" class="texture-map-toggle" />
+                  <div class="texture-slot" id="diffuse-map-slot">
+                    <button class="texture-btn">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="property-row">
+                <label>Normal</label>
+                <div class="texture-controls">
+                  <input type="checkbox" id="normal-map-toggle" class="texture-map-toggle" />
+                  <div class="texture-slot" id="normal-map-slot">
+                    <button class="texture-btn">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

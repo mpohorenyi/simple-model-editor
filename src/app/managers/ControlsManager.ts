@@ -91,9 +91,13 @@ export class ControlsManager {
   }
 
   private handleMouseUp(event: MouseEvent): void {
+    const canvasContainer = this.sceneManager.getCanvas().parentElement;
+
+    if (!canvasContainer) return;
+
     if (!this.mouseState.hasMoved) {
-      this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
-      this.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      this.pointer.x = (event.clientX / canvasContainer.clientWidth) * 2 - 1;
+      this.pointer.y = -(event.clientY / canvasContainer.clientHeight) * 2 + 1;
 
       this.raycaster.setFromCamera(this.pointer, this.sceneManager.getCamera());
 

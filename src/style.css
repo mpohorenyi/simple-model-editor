@@ -254,6 +254,10 @@ input[type="checkbox"] {
 }
 
 /* Tabs (Object and Material) */
+#object-properties {
+  display: none;
+}
+
 .tabs {
   display: flex;
   border-bottom: 1px solid var(--color-border);
@@ -405,11 +409,6 @@ select,
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-}
-
-/* Object properties panel (temporary display) */
-#object-properties {
-  display: block; /* Temporarily displayed for demonstration */
 }
 
 /* Media query for mobile devices */

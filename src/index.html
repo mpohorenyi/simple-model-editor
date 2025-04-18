@@ -19,31 +19,37 @@
             <img
               src="./envmaps/thumbnails/studio_small_09.webp"
               class="env-map-thumbnail active"
-              data-env="studio_small_09"
+              data-envName="studio_small_09"
+              data-envSrc="./envmaps/studio_small_09.hdr"
+              alt="Studio Small 09"
             />
             <img
               src="./envmaps/thumbnails/rainforest_trail.webp"
               class="env-map-thumbnail"
-              data-env="rainforest_trail"
+              data-envName="rainforest_trail"
+              data-envSrc="./envmaps/rainforest_trail.hdr"
+              alt="Rainforest Trail"
             />
             <img
               src="./envmaps/thumbnails/rogland_clear_night.webp"
               class="env-map-thumbnail"
-              data-env="rogland_clear_night"
+              data-envName="rogland_clear_night"
+              data-envSrc="./envmaps/rogland_clear_night.hdr"
+              alt="Rogland Clear Night"
             />
           </div>
         </div>
         <div class="panel-section">
           <h3>Import</h3>
-          <input type="file" id="model-input" accept=".glb,.gltf,.fbx" style="display: none" />
-          <button id="import-button">Import Model</button>
+          <input type="file" id="model-import-input" accept=".glb,.gltf,.fbx" style="display: none" />
+          <button id="model-import-button">Import Model</button>
         </div>
         <div id="object-properties" class="panel-section">
           <div class="tabs">
-            <button class="tab-btn active" data-tab="object-tab">OBJECT</button>
+            <button class="tab-btn" data-tab="object-tab">OBJECT</button>
             <button class="tab-btn" data-tab="material-tab">MATERIAL</button>
           </div>
-          <div id="object-tab" class="tab-content active">
+          <div id="object-tab" class="tab-content">
             <div class="property-row">
               <label>Name</label>
               <input type="text" id="object-name" value="Cube_001" disabled />
@@ -55,6 +61,7 @@
                   type="number"
                   class="vector-input"
                   id="pos-x"
+                  data-axis="x"
                   value="0"
                   min="-100"
                   max="100"
@@ -64,6 +71,7 @@
                   type="number"
                   class="vector-input"
                   id="pos-y"
+                  data-axis="y"
                   value="0"
                   min="-100"
                   max="100"
@@ -73,6 +81,7 @@
                   type="number"
                   class="vector-input"
                   id="pos-z"
+                  data-axis="z"
                   value="0"
                   min="-100"
                   max="100"
@@ -87,27 +96,30 @@
                   type="number"
                   class="vector-input"
                   id="rot-x"
+                  data-axis="x"
                   value="0"
-                  min="0"
-                  max="360"
+                  min="-180"
+                  max="180"
                   step="5"
                 />
                 <input
                   type="number"
                   class="vector-input"
                   id="rot-y"
+                  data-axis="y"
                   value="0"
-                  min="0"
-                  max="360"
+                  min="-180"
+                  max="180"
                   step="5"
                 />
                 <input
                   type="number"
                   class="vector-input"
                   id="rot-z"
+                  data-axis="z"
                   value="0"
-                  min="0"
-                  max="360"
+                  min="-180"
+                  max="180"
                   step="5"
                 />
               </div>
@@ -119,6 +131,7 @@
                   type="number"
                   class="vector-input"
                   id="scale-x"
+                  data-axis="x"
                   value="1"
                   min="0.01"
                   max="100"
@@ -128,6 +141,7 @@
                   type="number"
                   class="vector-input"
                   id="scale-y"
+                  data-axis="y"
                   value="1"
                   min="0.01"
                   max="100"
@@ -137,6 +151,7 @@
                   type="number"
                   class="vector-input"
                   id="scale-z"
+                  data-axis="z"
                   value="1"
                   min="0.01"
                   max="100"
@@ -149,7 +164,7 @@
               <input type="checkbox" id="object-visible" checked />
             </div>
           </div>
-          <div id="material-tab" class="tab-content active">
+          <div id="material-tab" class="tab-content">
             <div class="property-row">
               <label>Color</label>
               <div class="color-input-wrapper">
@@ -160,7 +175,7 @@
             <div class="property-row">
               <label>Opacity</label>
               <input type="range" id="material-opacity" min="0" max="1" step="0.01" value="1" />
-              <span class="value-display">1.00</span>
+              <span class="value-display" id="material-opacity-display">1.00</span>
             </div>
 
             <div class="property-row">
@@ -174,7 +189,7 @@
                 <div class="texture-controls">
                   <input type="checkbox" id="diffuse-map-toggle" class="texture-map-toggle" />
                   <div class="texture-slot" id="diffuse-map-slot">
-                    <button class="texture-btn">+</button>
+                    <button class="texture-btn" id="diffuse-map-btn">+</button>
                   </div>
                 </div>
               </div>
@@ -184,7 +199,7 @@
                 <div class="texture-controls">
                   <input type="checkbox" id="normal-map-toggle" class="texture-map-toggle" />
                   <div class="texture-slot" id="normal-map-slot">
-                    <button class="texture-btn">+</button>
+                    <button class="texture-btn" id="normal-map-btn">+</button>
                   </div>
                 </div>
               </div>

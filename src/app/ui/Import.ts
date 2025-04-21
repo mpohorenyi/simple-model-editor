@@ -22,27 +22,30 @@ export class Import extends UIComponent {
   }
 
   private setupEventListeners(): void {
-    // Import button
     this.addEventListenerWithCleanup(
       this.importControls.importButton,
       'click',
       this.handleImportButtonClick.bind(this)
     );
+
+    this.addEventListenerWithCleanup(
+      this.importControls.fileInput,
+      'change',
+      this.handleFileInputChange.bind(this)
+    );
   }
 
   private handleImportButtonClick(): void {
     this.importControls.fileInput.click();
-    this.importControls.fileInput.addEventListener(
-      'change',
-      () => {
-        const files = this.importControls.fileInput.files;
-        if (files && files.length > 0) {
-          this.eventBus.emit('ui.model.import', files[0]);
-        }
-      },
-      { once: true }
-    );
-    this.importControls.fileInput.value = '';
+  }
+
+  private handleFileInputChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const files = input.files;
+    if (files && files.length > 0) {
+      this.eventBus.emit('ui.model.import', files[0]);
+      input.value = '';
+    }
   }
 
   protected removeEventBusListeners(): void {}

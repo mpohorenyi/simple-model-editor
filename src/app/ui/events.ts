@@ -17,8 +17,7 @@ export interface ScaleChangeEvent {
 
 export interface EnvironmentMapEvent {
   name?: string;
-  src?: string;
-  index: number;
+  isBackgroundVisible?: boolean;
 }
 
 export interface ObjectEvent {

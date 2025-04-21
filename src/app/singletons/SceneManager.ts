@@ -19,9 +19,7 @@ export class SceneManager {
 
   // Scene elements
   private lights: {
-    ambient: THREE.AmbientLight;
     directional: THREE.DirectionalLight;
-    hemisphere: THREE.HemisphereLight;
   };
 
   private gridHelper: THREE.GridHelper | null = null;
@@ -67,15 +65,13 @@ export class SceneManager {
     this.orbitControls.enableDamping = true;
 
     this.lights = {
-      ambient: new THREE.AmbientLight(0xffffff, 0.5),
       directional: new THREE.DirectionalLight(0xffffff, 1),
-      hemisphere: new THREE.HemisphereLight(0xffffff, 0x444444, 0.6),
     };
 
     this.lights.directional.position.set(5, 5, 5);
     this.lights.directional.castShadow = true;
 
-    this.scene.add(this.lights.ambient, this.lights.directional, this.lights.hemisphere);
+    this.scene.add(this.lights.directional);
 
     this.setupHelpers();
 

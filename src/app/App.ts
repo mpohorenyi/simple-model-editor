@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { ControlsManager } from './managers';
+import { ControlsManager, EnvMapsManager } from './managers';
 import { EventBus, SceneManager } from './singletons';
 import { UIManager } from './ui';
 
@@ -11,6 +11,7 @@ export class App {
   private eventBus: EventBus;
   private sceneManager: SceneManager;
   private controlsManager: ControlsManager;
+  private envMapsManager: EnvMapsManager;
   private uiManager: UIManager;
 
   constructor() {
@@ -18,9 +19,11 @@ export class App {
 
     this.sceneManager = SceneManager.getInstance();
 
+    this.uiManager = new UIManager();
+
     this.controlsManager = new ControlsManager();
 
-    this.uiManager = new UIManager();
+    this.envMapsManager = new EnvMapsManager();
 
     this.createTestCubes();
 
@@ -34,6 +37,7 @@ export class App {
     this.uiManager.dispose();
     this.controlsManager.dispose();
     this.sceneManager.dispose();
+    this.envMapsManager.dispose();
   }
 
   private createTestCubes(): void {

@@ -3,6 +3,7 @@ import { TransformControls } from 'three/examples/jsm/Addons.js';
 
 import { EventBus, SceneManager } from '../singletons';
 import { TransformMode } from '../types';
+import { ObjectChangeEvent } from '../ui';
 
 /**
  * ControlsManager - Manages the transform controls for manipulating objects in the scene
@@ -40,6 +41,7 @@ export class ControlsManager {
     this.sceneManager.getScene().add(this.transformControls.getHelper());
 
     this.setupEventListeners();
+    this.setupEventBusListeners();
   }
 
   /**
@@ -57,6 +59,12 @@ export class ControlsManager {
     canvas.addEventListener('mousedown', this.handleMouseDown.bind(this));
     canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
     canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
+  }
+
+  private setupEventBusListeners(): void {
+    this.eventBus.on('ui.object.position.change', this.handlePositionChange.bind(this));
+    this.eventBus.on('ui.object.rotation.change', this.handleRotationChange.bind(this));
+    this.eventBus.on('ui.object.scale.change', this.handleScaleChange.bind(this));
   }
 
   /**
@@ -131,6 +139,24 @@ export class ControlsManager {
     }
   }
 
+  private handlePositionChange(event: ObjectChangeEvent): void {
+    if (this.selectedObject) {
+      this.selectedObject.position[event.axis] = event.value;
+    }
+  }
+
+  private handleRotationChange(event: ObjectChangeEvent): void {
+    if (this.selectedObject) {
+      this.selectedObject.rotation[event.axis] = event.value;
+    }
+  }
+
+  private handleScaleChange(event: ObjectChangeEvent): void {
+    if (this.selectedObject) {
+      this.selectedObject.scale[event.axis] = event.value;
+    }
+  }
+
   /**
    * Set transform mode (translate, rotate, scale)
    */
@@ -172,8 +198,8 @@ export class ControlsManager {
     const canvas = this.sceneManager.getCanvas();
 
     this.transformControls.dispose();
-    window.removeEventListener('keydown', this.handleKeyDown.bind(this));
 
+    window.removeEventListener('keydown', this.handleKeyDown.bind(this));
     canvas.removeEventListener('mousedown', this.handleMouseDown.bind(this));
     canvas.removeEventListener('mousemove', this.handleMouseMove.bind(this));
     canvas.removeEventListener('mouseup', this.handleMouseUp.bind(this));

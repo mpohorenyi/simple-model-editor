@@ -18,6 +18,8 @@ export class MaterialPanel extends UIComponent {
     normalToggle: HTMLInputElement;
     diffuseButton: HTMLButtonElement;
     normalButton: HTMLButtonElement;
+    diffuseFileInput: HTMLInputElement;
+    normalFileInput: HTMLInputElement;
   };
 
   constructor() {
@@ -37,9 +39,12 @@ export class MaterialPanel extends UIComponent {
       normalToggle: document.querySelector('#normal-map-toggle') as HTMLInputElement,
       diffuseButton: document.querySelector('#diffuse-map-btn') as HTMLButtonElement,
       normalButton: document.querySelector('#normal-map-btn') as HTMLButtonElement,
+      diffuseFileInput: document.querySelector('#diffuse-map-input') as HTMLInputElement,
+      normalFileInput: document.querySelector('#normal-map-input') as HTMLInputElement,
     };
 
     this.setupEventListeners();
+    this.setupEventBusListeners();
   }
 
   private setupEventListeners(): void {
@@ -76,13 +81,29 @@ export class MaterialPanel extends UIComponent {
     this.addEventListenerWithCleanup(
       this.textureControls.diffuseButton,
       'click',
-      this.handleDiffuseMapSelect.bind(this)
+      this.handleDiffuseButtonClick.bind(this)
     );
     this.addEventListenerWithCleanup(
       this.textureControls.normalButton,
       'click',
-      this.handleNormalMapSelect.bind(this)
+      this.handleNormalButtonClick.bind(this)
     );
+
+    // File inputs
+    this.addEventListenerWithCleanup(
+      this.textureControls.diffuseFileInput,
+      'change',
+      this.handleDiffuseFileChange.bind(this)
+    );
+    this.addEventListenerWithCleanup(
+      this.textureControls.normalFileInput,
+      'change',
+      this.handleNormalFileChange.bind(this)
+    );
+  }
+
+  private setupEventBusListeners(): void {
+    this.eventBus.on('material.updated', this.updateMaterialProperties.bind(this));
   }
 
   private handleMaterialColorChange(event: Event): void {
@@ -116,15 +137,62 @@ export class MaterialPanel extends UIComponent {
     this.eventBus.emit('ui.material.normal.toggle', enabled);
   }
 
-  private handleDiffuseMapSelect(event: Event): void {
-    this.eventBus.emit('ui.material.diffuse.select');
+  private handleDiffuseButtonClick(): void {
+    this.textureControls.diffuseFileInput.click();
   }
 
-  private handleNormalMapSelect(event: Event): void {
-    this.eventBus.emit('ui.material.normal.select');
+  private handleNormalButtonClick(): void {
+    this.textureControls.normalFileInput.click();
   }
 
-  public updateMaterialProperties(material: THREE.Material): void {}
+  private handleDiffuseFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const files = input.files;
+    if (files && files.length > 0) {
+      this.eventBus.emit('ui.material.diffuse.file', files[0]);
+      input.value = '';
+    }
+  }
 
-  protected removeEventBusListeners(): void {}
+  private handleNormalFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const files = input.files;
+    if (files && files.length > 0) {
+      this.eventBus.emit('ui.material.normal.file', files[0]);
+      input.value = '';
+    }
+  }
+
+  private updateMaterialProperties(materialData: {
+    color?: string;
+    opacity?: number;
+    transparent?: boolean;
+    hasDiffuseMap?: boolean;
+    hasNormalMap?: boolean;
+  }): void {
+    if (materialData.color !== undefined) {
+      this.materialControls.color.value = materialData.color;
+    }
+
+    if (materialData.opacity !== undefined) {
+      this.materialControls.opacity.value = materialData.opacity.toString();
+      this.materialControls.opacityDisplay.textContent = materialData.opacity.toFixed(2);
+    }
+
+    if (materialData.transparent !== undefined) {
+      this.materialControls.transparent.checked = materialData.transparent;
+    }
+
+    if (materialData.hasDiffuseMap !== undefined) {
+      this.textureControls.diffuseToggle.checked = materialData.hasDiffuseMap;
+    }
+
+    if (materialData.hasNormalMap !== undefined) {
+      this.textureControls.normalToggle.checked = materialData.hasNormalMap;
+    }
+  }
+
+  protected removeEventBusListeners(): void {
+    this.eventBus.off('material.updated', this.updateMaterialProperties.bind(this));
+  }
 }

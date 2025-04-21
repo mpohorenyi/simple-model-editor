@@ -11,6 +11,9 @@
     <div class="app-container">
       <div class="canvas-container">
         <canvas class="webgl"></canvas>
+        <div class="loading-overlay">
+          <div class="loader"></div>
+        </div>
       </div>
       <div class="side-panel">
         <div class="panel-section">
@@ -20,28 +23,34 @@
               src="./envmaps/thumbnails/studio_small_09.webp"
               class="env-map-thumbnail active"
               data-env-name="studio_small_09"
-              data-env-src="./envmaps/studio_small_09.hdr"
               alt="Studio Small 09"
             />
             <img
               src="./envmaps/thumbnails/rainforest_trail.webp"
               class="env-map-thumbnail"
               data-env-name="rainforest_trail"
-              data-env-src="./envmaps/rainforest_trail.hdr"
               alt="Rainforest Trail"
             />
             <img
               src="./envmaps/thumbnails/rogland_clear_night.webp"
               class="env-map-thumbnail"
               data-env-name="rogland_clear_night"
-              data-env-src="./envmaps/rogland_clear_night.hdr"
               alt="Rogland Clear Night"
             />
+          </div>
+          <div class="property-row">
+            <label>Use as background</label>
+            <input type="checkbox" id="env-background-toggle" />
           </div>
         </div>
         <div class="panel-section">
           <h3>Import</h3>
-          <input type="file" id="model-import-input" accept=".glb,.gltf,.fbx" style="display: none" />
+          <input
+            type="file"
+            id="model-import-input"
+            accept=".glb,.gltf,.fbx"
+            style="display: none"
+          />
           <button id="model-import-button">Import Model</button>
         </div>
         <div id="object-properties" class="panel-section">

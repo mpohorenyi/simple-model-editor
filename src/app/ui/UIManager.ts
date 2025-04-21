@@ -1,5 +1,6 @@
 import { EnvironmentMapsManager } from './EnvironmentMapsManager';
 import { ImportManager } from './ImportManager';
+import { LoadingScreenManager } from './LoadingScreenManager';
 import { MaterialPanelManager } from './MaterialPanelManager';
 import { ObjectPanelManager } from './ObjectPanelManager';
 import { TabManager } from './TabManager';
@@ -8,6 +9,7 @@ import { TabManager } from './TabManager';
  * UIManager - Coordinates all UI components and their interactions
  */
 export class UIManager {
+  private loadingScreenManager: LoadingScreenManager;
   private objectPanel: ObjectPanelManager;
   private materialPanel: MaterialPanelManager;
   private tabManager: TabManager;
@@ -16,6 +18,7 @@ export class UIManager {
 
   constructor() {
     // Initialize all UI components
+    this.loadingScreenManager = new LoadingScreenManager();
     this.objectPanel = new ObjectPanelManager();
     this.materialPanel = new MaterialPanelManager();
     this.tabManager = new TabManager();
@@ -27,6 +30,7 @@ export class UIManager {
    * Clean up resources
    */
   public dispose(): void {
+    this.loadingScreenManager.dispose();
     this.objectPanel.dispose();
     this.materialPanel.dispose();
     this.tabManager.dispose();

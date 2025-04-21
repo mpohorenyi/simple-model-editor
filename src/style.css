@@ -297,7 +297,7 @@ input[type="checkbox"] {
 .property-row {
   display: flex;
   align-items: center;
-  margin-bottom: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
 }
 
 .property-row label {
@@ -372,17 +372,45 @@ input[type="checkbox"] {
 
 /* Loading overlay */
 .loading-overlay {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: var(--color-overlay);
   color: var(--color-text);
-  display: flex;
+  display: none;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: var(--spacing-md);
   z-index: 2000;
+}
+
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  display: grid;
+  border: 4px solid #0000;
+  border-radius: 50%;
+  border-right-color: var(--color-primary);
+  animation: l15 1s infinite linear;
+}
+.loader::before,
+.loader::after {    
+  content: "";
+  grid-area: 1/1;
+  margin: 2px;
+  border: inherit;
+  border-radius: 50%;
+  animation: l15 2s infinite;
+}
+.loader::after {
+  margin: 8px;
+  animation-duration: 3s;
+}
+@keyframes l15{ 
+  100%{transform: rotate(1turn)}
 }
 
 .loading-text {

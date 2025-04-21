@@ -25,7 +25,6 @@ export class ObjectPanel extends UIComponent {
     z: HTMLInputElement;
   };
 
-  private objectVisibleCheckbox: HTMLInputElement;
   private objectNameInput: HTMLInputElement;
 
   constructor() {
@@ -52,8 +51,7 @@ export class ObjectPanel extends UIComponent {
       z: document.querySelector('#scale-z') as HTMLInputElement,
     };
 
-    // Get object visible checkbox and name input
-    this.objectVisibleCheckbox = document.querySelector('#object-visible') as HTMLInputElement;
+    // Get object name input
     this.objectNameInput = document.querySelector('#object-name') as HTMLInputElement;
 
     this.setupEventListeners();
@@ -75,20 +73,6 @@ export class ObjectPanel extends UIComponent {
     Object.values(this.scaleInputs).forEach(input => {
       this.addEventListenerWithCleanup(input, 'change', this.handleScaleChange.bind(this));
     });
-
-    // Object visible checkbox change event
-    this.addEventListenerWithCleanup(
-      this.objectVisibleCheckbox,
-      'change',
-      this.handleObjectVisibleChange.bind(this)
-    );
-
-    // Object name input change event
-    this.addEventListenerWithCleanup(
-      this.objectNameInput,
-      'change',
-      this.handleObjectNameChange.bind(this)
-    );
   }
 
   private setupEventBusListeners(): void {
@@ -124,18 +108,6 @@ export class ObjectPanel extends UIComponent {
     this.eventBus.emit('ui.object.scale.change', scaleEvent);
   }
 
-  private handleObjectVisibleChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const visible = input.checked;
-    this.eventBus.emit('ui.object.visible.change', visible);
-  }
-
-  private handleObjectNameChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const name = input.value.trim();
-    this.eventBus.emit('ui.object.name.change', name);
-  }
-
   private updateObjectProperties(object: THREE.Object3D): void {
     // Update name
     this.objectNameInput.value = object.name;
@@ -154,9 +126,6 @@ export class ObjectPanel extends UIComponent {
     this.scaleInputs.x.value = object.scale.x.toFixed(2);
     this.scaleInputs.y.value = object.scale.y.toFixed(2);
     this.scaleInputs.z.value = object.scale.z.toFixed(2);
-
-    // Update visible checkbox
-    this.objectVisibleCheckbox.checked = object.visible;
   }
 
   private handleObjectSelected(object: THREE.Object3D): void {

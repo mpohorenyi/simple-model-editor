@@ -1,16 +1,6 @@
 import * as THREE from 'three';
 
-export interface PositionChangeEvent {
-  axis: 'x' | 'y' | 'z';
-  value: number;
-}
-
-export interface RotationChangeEvent {
-  axis: 'x' | 'y' | 'z';
-  value: number; // in radians
-}
-
-export interface ScaleChangeEvent {
+export interface ObjectChangeEvent {
   axis: 'x' | 'y' | 'z';
   value: number;
 }

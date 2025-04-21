@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 import { UIComponent } from './UIComponent';
-import { PositionChangeEvent, RotationChangeEvent, ScaleChangeEvent } from './events';
+import { ObjectChangeEvent } from './events';
 
 /**
  * Manages the object panel UI, handling input changes and updating the object properties.
@@ -85,7 +85,7 @@ export class ObjectPanel extends UIComponent {
     const axis = input.dataset.axis as 'x' | 'y' | 'z';
     const value = this.validateNumericInput(input);
 
-    const positionEvent: PositionChangeEvent = { axis, value };
+    const positionEvent: ObjectChangeEvent = { axis, value };
     this.eventBus.emit('ui.object.position.change', positionEvent);
   }
 
@@ -95,7 +95,7 @@ export class ObjectPanel extends UIComponent {
     const degrees = this.validateNumericInput(input);
     const radians = THREE.MathUtils.degToRad(degrees);
 
-    const rotationEvent: RotationChangeEvent = { axis, value: radians };
+    const rotationEvent: ObjectChangeEvent = { axis, value: radians };
     this.eventBus.emit('ui.object.rotation.change', rotationEvent);
   }
 
@@ -104,7 +104,7 @@ export class ObjectPanel extends UIComponent {
     const axis = input.dataset.axis as 'x' | 'y' | 'z';
     const value = this.validateNumericInput(input, 1);
 
-    const scaleEvent: ScaleChangeEvent = { axis, value };
+    const scaleEvent: ObjectChangeEvent = { axis, value };
     this.eventBus.emit('ui.object.scale.change', scaleEvent);
   }
 

@@ -1,23 +1,19 @@
-import * as THREE from 'three';
-
-import { ControlsManager, EnvMapsManager, ImportManager } from './managers';
-import { EventBus, SceneManager } from './singletons';
+import { ControlsManager, EnvMapsManager, ImportManager, MaterialManager } from './managers';
+import { SceneManager } from './singletons';
 import { UIManager } from './ui';
 
 /**
  * Main application class that initializes and connects all components
  */
 export class App {
-  private eventBus: EventBus;
   private sceneManager: SceneManager;
   private controlsManager: ControlsManager;
   private envMapsManager: EnvMapsManager;
   private uiManager: UIManager;
   private importManager: ImportManager;
+  private materialManager: MaterialManager;
 
   constructor() {
-    this.eventBus = EventBus.getInstance();
-
     this.sceneManager = SceneManager.getInstance();
 
     this.uiManager = new UIManager();
@@ -27,6 +23,8 @@ export class App {
     this.envMapsManager = new EnvMapsManager();
 
     this.importManager = new ImportManager();
+
+    this.materialManager = new MaterialManager();
 
     console.log('3D Model Editor initialized');
   }
@@ -40,5 +38,6 @@ export class App {
     this.sceneManager.dispose();
     this.envMapsManager.dispose();
     this.importManager.dispose();
+    this.materialManager.dispose();
   }
 }

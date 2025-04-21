@@ -68,7 +68,14 @@ export class SceneManager {
       directional: new THREE.DirectionalLight(0xffffff, 1),
     };
 
-    this.lights.directional.position.set(5, 5, 5);
+    this.lights.directional.position.set(10, 10, 10);
+    this.lights.directional.shadow.mapSize.set(1024, 1024);
+    this.lights.directional.shadow.camera.near = 0.5;
+    this.lights.directional.shadow.camera.far = 35;
+    this.lights.directional.shadow.camera.left = -15;
+    this.lights.directional.shadow.camera.right = 15;
+    this.lights.directional.shadow.camera.top = 15;
+    this.lights.directional.shadow.camera.bottom = -15;
     this.lights.directional.castShadow = true;
 
     this.scene.add(this.lights.directional);

@@ -5,7 +5,7 @@ import { UIComponent } from './UIComponent';
 /**
  * Manages the tab navigation and content display for the object and material tabs.
  */
-export class TabManager extends UIComponent {
+export class Tabs extends UIComponent {
   private objectTab: HTMLElement;
   private materialTab: HTMLElement;
   private tabButtons: NodeListOf<HTMLButtonElement>;

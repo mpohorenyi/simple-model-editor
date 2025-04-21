@@ -1,9 +1,9 @@
 import { UIComponent } from './UIComponent';
 
 /**
- * LoadingScreenManager - UI component for managing the loading screen
+ * LoadingScreen - UI component for managing the loading screen
  */
-export class LoadingScreenManager extends UIComponent {
+export class LoadingScreen extends UIComponent {
   private loadingOverlay: HTMLElement;
 
   constructor() {

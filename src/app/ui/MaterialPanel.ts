@@ -5,7 +5,7 @@ import { UIComponent } from './UIComponent';
 /**
  * Manages the material panel UI, handling input changes and updating the material properties.
  */
-export class MaterialPanelManager extends UIComponent {
+export class MaterialPanel extends UIComponent {
   private materialControls: {
     color: HTMLInputElement;
     opacity: HTMLInputElement;

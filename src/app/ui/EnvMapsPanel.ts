@@ -4,7 +4,7 @@ import { EnvironmentMapEvent } from './events';
 /**
  * Manages the environment map UI, handling the environment map buttons and selection.
  */
-export class EnvironmentMapsManager extends UIComponent {
+export class EnvMapsPanel extends UIComponent {
   private envMapButtons: NodeListOf<HTMLElement>;
   private envBackgroundToggle: HTMLInputElement;
 

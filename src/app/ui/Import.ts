@@ -3,7 +3,7 @@ import { UIComponent } from './UIComponent';
 /**
  * Manages the import model UI, handling the import button and file input.
  */
-export class ImportManager extends UIComponent {
+export class Import extends UIComponent {
   private importControls: {
     importButton: HTMLButtonElement;
     fileInput: HTMLInputElement;
@@ -42,6 +42,7 @@ export class ImportManager extends UIComponent {
       },
       { once: true }
     );
+    this.importControls.fileInput.value = '';
   }
 
   protected removeEventBusListeners(): void {}

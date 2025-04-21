@@ -6,7 +6,7 @@ import { PositionChangeEvent, RotationChangeEvent, ScaleChangeEvent } from './ev
 /**
  * Manages the object panel UI, handling input changes and updating the object properties.
  */
-export class ObjectPanelManager extends UIComponent {
+export class ObjectPanel extends UIComponent {
   private positionInputs: {
     x: HTMLInputElement;
     y: HTMLInputElement;

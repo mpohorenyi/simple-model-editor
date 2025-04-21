@@ -1,40 +1,40 @@
-import { EnvironmentMapsManager } from './EnvironmentMapsManager';
-import { ImportManager } from './ImportManager';
-import { LoadingScreenManager } from './LoadingScreenManager';
-import { MaterialPanelManager } from './MaterialPanelManager';
-import { ObjectPanelManager } from './ObjectPanelManager';
-import { TabManager } from './TabManager';
+import { EnvMapsPanel } from './EnvMapsPanel';
+import { Import } from './Import';
+import { LoadingScreen } from './LoadingScreen';
+import { MaterialPanel } from './MaterialPanel';
+import { ObjectPanel } from './ObjectPanel';
+import { Tabs } from './Tabs';
 
 /**
  * UIManager - Coordinates all UI components and their interactions
  */
 export class UIManager {
-  private loadingScreenManager: LoadingScreenManager;
-  private objectPanel: ObjectPanelManager;
-  private materialPanel: MaterialPanelManager;
-  private tabManager: TabManager;
-  private importManager: ImportManager;
-  private environmentMapsManager: EnvironmentMapsManager;
+  private loadingScreen: LoadingScreen;
+  private objectPanel: ObjectPanel;
+  private materialPanel: MaterialPanel;
+  private tabs: Tabs;
+  private import: Import;
+  private envMapsPanel: EnvMapsPanel;
 
   constructor() {
     // Initialize all UI components
-    this.loadingScreenManager = new LoadingScreenManager();
-    this.objectPanel = new ObjectPanelManager();
-    this.materialPanel = new MaterialPanelManager();
-    this.tabManager = new TabManager();
-    this.importManager = new ImportManager();
-    this.environmentMapsManager = new EnvironmentMapsManager();
+    this.loadingScreen = new LoadingScreen();
+    this.objectPanel = new ObjectPanel();
+    this.materialPanel = new MaterialPanel();
+    this.tabs = new Tabs();
+    this.import = new Import();
+    this.envMapsPanel = new EnvMapsPanel();
   }
 
   /**
    * Clean up resources
    */
   public dispose(): void {
-    this.loadingScreenManager.dispose();
+    this.loadingScreen.dispose();
     this.objectPanel.dispose();
     this.materialPanel.dispose();
-    this.tabManager.dispose();
-    this.importManager.dispose();
-    this.environmentMapsManager.dispose();
+    this.tabs.dispose();
+    this.import.dispose();
+    this.envMapsPanel.dispose();
   }
 }
